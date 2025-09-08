@@ -1,6 +1,6 @@
-# 🗺️ Alrededor de los EE.UU. (Proyecto: Tripleten web_project_around)
+# 🗺️ Alrededor de los EE.UU. (Proyecto: Tripleten web_project_around React)
 
-## Alrededor de los EE.UU. es una aplicación web interactiva desarrollada con HTML, CSS y JavaScript puro. Permite a los usuarios gestionar su perfil, agregar tarjetas con imágenes, interactuar con ellas (dar "me gusta") y eliminarlas dinámicamente. El proyecto integra validación de formularios y una gestión eficiente del estado, todo implementado sin librerías externas para un control total del código.
+## Alrededor de los EE.UU. es una aplicación web interactiva desarrollada con React. Permite a los usuarios gestionar su perfil, agregar tarjetas con imágenes, interactuar con ellas (dar "me gusta") y eliminarlas dinámicamente. El proyecto está construido sobre una arquitectura de componentes moderna, aprovechando el manejo del estado y los hooks de React.
 
 ## 📚 Tabla de Contenido
 
@@ -8,36 +8,31 @@
 - [🧰 Tecnologías Utilizadas](#-tecnologías-utilizadas)
 - [⚙️ Funcionalidades Clave](#️-funcionalidades-clave)
 - [🖼️ Captura de Pantalla](#️-captura-de-pantalla)
-- [🎥 Video de Demostración](#-video-de-demostración)
 - [🚀 Cómo Visualizar el Proyecto](#-cómo-visualizar-el-proyecto)
 - [🧪 Mejoras Futuras](#-mejoras-futuras)
 - [👨‍💻 Autor](#-autor)
 
 ## 🎯 Objetivo del Proyecto
 
-Este proyecto fue creado como parte del curso de desarrollo web de TripleTen para aplicar conceptos esenciales de desarrollo front-end, incluyendo la manipulación del DOM, la validación de formularios y la programación orientada a objetos (POO) en JavaScript.
+Este proyecto fue creado como parte del curso de desarrollo web de TripleTen para aplicar conceptos esenciales de desarrollo front-end, incluyendo la manipulación del estado, la gestión de componentes y el uso de hooks en React.
 
-El proyecto se construyó con una arquitectura modular y escalable utilizando **HTML5** para la estructura semántica, **CSS3** para el diseño responsivo y **JavaScript (ES6+)** para toda la lógica interactiva.
+El proyecto se construyó con una arquitectura modular y escalable utilizando HTML5 para la estructura semántica, CSS3 para el diseño responsivo y React (con JSX y ES6+) para toda la lógica interactiva.
 
-**La arquitectura del proyecto se basa en los siguientes principios:**
-
-- Manipulación dinámica del DOM para una experiencia de usuario reactiva.
-- Creación y control eficiente de modales (ventanas emergentes).
-- Validación avanzada de formularios con mensajes de error contextuales.
-- Formularios interactivos con lógica modular y reutilizable.
-- POO en JavaScript (clases como Card, FormValidator, Section, API, entre otras).
-- Encapsulación y modularidad, asegurando código mantenible.
-- Programación asíncrona con Promises, y fetch.
-- Consumo de APIs REST.
-- Uso de prototipos, constructores e herencia.
+- La arquitectura del proyecto se basa en los siguientes principios:
+- Manejo del Estado (hooks): Utilización de useState para gestionar el estado de la aplicación (tarjetas, pop-ups, etc.) de manera reactiva.
+- Componentes Reutilizables: Diseño modular donde cada parte de la interfaz es un componente independiente (Card, Popup, Main).
+- Renderizado Condicional: Los pop-ups y otros elementos se muestran u ocultan en función del estado de la aplicación.
+- Manejo de Eventos: Eventos como clics y envíos de formularios se gestionan con funciones pasadas como props entre componentes.
 
 ---
 
 ## 🧰 Tecnologías Utilizadas
 
-- ✅ **HTML5** – estructura semántica clara.
-- 🎨 **CSS3** – diseño responsivo y modular.
+- ✅ **React** – Biblioteca de JavaScript para construir interfaces de usuario.
+- 🎨 **JSX** – Extensión de sintaxis de JavaScript para describir la interfaz.
+- 🎨 **CSS3** – Diseño responsivo y modular.
 - ⚙️ **JavaScript ES6+** – modularidad, asincronía, clases, promesas y fetch.
+- ⚛️ **Hooks de React** – useState para el manejo del estado.
 - 🧩 **POO en JS** – clases, herencia y encapsulación.
 - 🌐 **APIs REST** – comunicación cliente/servidor en tiempo real.
 - 🔄 **Programación Asíncrona** – setTimeout, Promises, Promise.all.
@@ -47,15 +42,13 @@ El proyecto se construyó con una arquitectura modular y escalable utilizando **
 
 ## ⚙️ Funcionalidades Clave
 
-- ✏️ Edición del perfil con carga previa de datos.
-- ➕ Añadir nuevas tarjetas (imagen + título) mediante formularios con validación.
-- ❤️ Dar "me gusta" dinámicamente.
-- 🗑️ Eliminar tarjetas de forma inmediata.
-- 🔍 Ampliar imágenes con popups.
-- 🧠 Validación modular de formularios.
-- 🌐 Consumo de API REST para manejar datos de tarjetas/usuarios.
-- 🔄 Fetch + Promises para obtener y enviar información a endpoints.
-- 🏗️ Arquitectura modular y escalable basada en clases.
+- ✏️ Edición del perfil y del avatar a través de modales.
+- ➕ Añadir nuevas tarjetas mediante formularios con validación.
+- ❤️ Dar "me gusta" dinámicamente mediante la actualización del estado de la tarjeta.
+- 🗑️ Eliminar tarjetas de forma dinámica y con pop-up de confirmación.
+- 🔍 Ampliar imágenes con pop-ups.
+- 🧠 Validación de formularios para una mejor experiencia de usuario.
+- 🏗️ Arquitectura modular y escalable basada en componentes de React.
 
 ---
 
@@ -64,30 +57,7 @@ El proyecto se construyó con una arquitectura modular y escalable utilizando **
 ### Vista principal
 
 <p align="center">
-  <a href="https://youtu.be/Ru1bY7e1UWI" target="_blank" rel="noopener noreferrer">
-    <img src="./images/screenshot_project.jpg" alt="Vista principal del proyecto" width="600">
-  </a>
-</p>
-
-### Actualización de Perfil y Avatar
-
-<p align="center">
-  <img src="./images/edit_user_avatar.gif" alt="Formulario de edición de perfil y avatar" width="600">
-</p>
-
-### ✨ Agregar, Eliminar, Dar Like y Ampliar Tarjetas
-
-<p align="center">
-  <img src="./images/cards_actions.gif" alt="Acciones con tarjetas: agregar, eliminar, dar like y ampliar" width="600">
-</p>
-
----
-
-## 🎥 Video de demostración
-
-<p align="center">
-  <a href="https://youtu.be/Ru1bY7e1UWI"  target="_blank">
-    <img src="./images/cards_actions.gif" alt="Mira la demo" width="600">
+      <img src="./public/screenshot_project.gif" alt="Vista principal del proyecto" width="600">
   </a>
 </p>
 
@@ -96,7 +66,7 @@ El proyecto se construyó con una arquitectura modular y escalable utilizando **
 ## 🚀 Cómo Visualizar el Proyecto
 
 Puedes ver el proyecto en acción aquí:
-👉 [https://alejandrom21.github.io/web_project_around/](https://alejandrom21.github.io/web_project_around/)
+👉 [https://alejandrom21.github.io/web_project_around_react/](https://alejandrom21.github.io/web_project_around_react/)
 
 ---
 
@@ -104,6 +74,7 @@ Puedes ver el proyecto en acción aquí:
 
 - Uso de localStorage como cache offline.
 - Subida de imágenes desde el dispositivo.
+- Arquitectura modular y escalable basada en componentes de React.
 
 ---
 

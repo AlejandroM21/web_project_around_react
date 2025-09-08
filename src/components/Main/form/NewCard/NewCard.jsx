@@ -1,4 +1,8 @@
-export default function NewCard() {
+export default function NewCard({ closePopup }) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    closePopup();
+  }
   return (
     <form
       className="popup__form popup__form_add"
@@ -32,7 +36,11 @@ export default function NewCard() {
         <span className="popup__error card-link-error"></span>
       </label>
 
-      <button type="submit" className="popup__button popup__button_add">
+      <button
+        type="submit"
+        className="popup__button popup__button_add"
+        onClick={handleSubmit}
+      >
         Crear
       </button>
     </form>

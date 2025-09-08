@@ -1,4 +1,8 @@
-export default function EditProfile() {
+export default function EditProfile({ closePopup }) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    closePopup();
+  }
   return (
     <form className="popup__form" noValidate>
       <label htmlFor="name">
@@ -29,7 +33,7 @@ export default function EditProfile() {
         <span className="popup__error about-me-error"></span>
       </label>
 
-      <button type="submit" className="popup__button">
+      <button type="submit" className="popup__button" onClick={handleSubmit}>
         Guardar
       </button>
     </form>

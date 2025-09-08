@@ -4,6 +4,7 @@ import RemoveCard from "../form/RemoveCard/RemoveCard";
 export default function Card({ card, onDelete, onLike, handleOpenPopup }) {
   const { name, link, isLiked } = card;
 
+  // Abrir el popup de Image y Trash
   const imageComponent = {
     title: "",
     children: <ImagePopup card={card} />,
@@ -22,6 +23,7 @@ export default function Card({ card, onDelete, onLike, handleOpenPopup }) {
         aria-label="Eliminar tarjeta"
         onClick={() => handleOpenPopup(confirmatiotrash)}
       ></button>
+
       {/* Imagen de la tarjeta */}
       <img
         className="elements__card-image"
@@ -36,8 +38,10 @@ export default function Card({ card, onDelete, onLike, handleOpenPopup }) {
 
         {/* Botón para Like */}
         <button
-          className={`elements__card-favorite ${
-            isLiked ? "elements__card-favorite_active" : ""
+          className={`${
+            isLiked
+              ? "elements__card-favorite_active elements__card-favorite"
+              : "elements__card-favorite"
           }`}
           aria-label="Like card"
           type="button"

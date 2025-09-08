@@ -58,6 +58,7 @@
   cursor: pointer;
   border-radius: 50%;
   transition: background-color 0.3s ease;
+  background-image: url(../public/logo_favorite.svg);
 }
 
 .elements__card-favorite:hover {

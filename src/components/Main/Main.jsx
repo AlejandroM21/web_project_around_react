@@ -6,38 +6,43 @@ import EditAvatar from "./form/EditAvatar/EditAvatar";
 import Popup from "./Popup/Popup";
 import Card from "./Card/Card";
 
-const cards = [
-  {
-    isLiked: false,
-    _id: "5d1f0611d321eb4bdcd707dd",
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:10:57.741Z",
-  },
-  {
-    isLiked: false,
-    _id: "5d1f064ed321eb4bdcd707de",
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:11:58.324Z",
-  },
-];
-
-console.log(cards);
-
 export default function Main() {
   const [popup, setPopup] = useState(null);
 
-  const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
+  const [cards, setCards] = useState([
+    {
+      isLiked: false,
+      _id: "5d1f0611d321eb4bdcd707dd",
+      name: "Yosemite Valley",
+      link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
+      owner: "5d1f0611d321eb4bdcd707dd",
+      createdAt: "2019-07-05T08:10:57.741Z",
+    },
+    {
+      isLiked: false,
+      _id: "5d1f064ed321eb4bdcd707de",
+      name: "Lake Louise",
+      link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
+      owner: "5d1f0611d321eb4bdcd707dd",
+      createdAt: "2019-07-05T08:11:58.324Z",
+    },
+  ]);
+
+  console.log(cards);
+
+  // Abrir el popup de addCard, Perfile, Avatar
+  const newCardPopup = {
+    title: "Nuevo Lugar",
+    children: <NewCard closePopup={handleClosePopup} />,
+  };
+
   const editProfilePopup = {
     title: "Editar Perfil",
-    children: <EditProfile />,
+    children: <EditProfile closePopup={handleClosePopup} />,
   };
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
-    children: <EditAvatar />,
+    children: <EditAvatar closePopup={handleClosePopup} />,
   };
 
   // cierra el popup poniendo popup de nuevo a null
@@ -49,14 +54,22 @@ export default function Main() {
   function handleOpenPopup(popup) {
     setPopup(popup);
   }
+
   //Dar like
-  function handleLike(card) {
-    console.log("Like para:", card.name);
+  // Si los IDs coinciden, crea una nueva tarjeta con todas las propiedades de la anterior (...card),
+  //  pero con la propiedad isLiked invertida (si era true ahora es false, y viceversa).
+  function handleLike(cardToLike) {
+    setCards(
+      cards.map((card) =>
+        card._id === cardToLike._id ? { ...card, isLiked: !card.isLiked } : card
+      )
+    );
   }
 
   //Eliminar tarjetas
-  function handleDelete(card) {
-    console.log("Eliminar tarjeta:", card.name);
+  function handleDelete(cardToDelete) {
+    setCards(cards.filter((card) => card._id !== cardToDelete._id));
+    handleClosePopup();
   }
 
   return (
@@ -82,7 +95,7 @@ export default function Main() {
         {/* INFO PERFIL */}
         <div className="profile__info">
           <div className="profile__info-name">
-            <h2 className="profile__name">Cargando...</h2>
+            <h2 className="profile__name">Alejandro Meléndez</h2>
 
             {/* Botón para editar perfil */}
             <button
@@ -91,7 +104,7 @@ export default function Main() {
               onClick={() => handleOpenPopup(editProfilePopup)}
             ></button>
           </div>
-          <p className="profile__about-me block"></p>
+          <p className="profile__about-me block">Ingeniero de Sistemas</p>
         </div>
 
         {/* <!-- ===== Sección de Tarjetas ===== --> */}
