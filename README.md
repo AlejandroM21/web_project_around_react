@@ -66,7 +66,7 @@ El proyecto se construyó con una arquitectura modular y escalable utilizando HT
 ## 🚀 Cómo Visualizar el Proyecto
 
 Puedes ver el proyecto en acción aquí:
-👉 [https://alejandrom21.github.io/web_project_around_react/](https://alejandrom21.github.io/web_project_around_react/)
+👉 [https://github.com/AlejandroM21/web_project_around_react](https://github.com/AlejandroM21/web_project_around_react)
 
 ---
 
