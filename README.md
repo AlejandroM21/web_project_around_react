@@ -60,10 +60,6 @@ El proyecto se construyó con una arquitectura modular y escalable utilizando HT
 
 ### Vista principal
 
-<p align="center">
-      <img src="public/screenshot_project.gif" alt="Vista principal del proyecto" width="600"/>
-</p>
-
 ---
 
 ## 🚀 Cómo Visualizar el Proyecto
