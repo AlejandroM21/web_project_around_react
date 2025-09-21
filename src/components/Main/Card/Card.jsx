@@ -1,7 +1,14 @@
 import ImagePopup from "../form/ImagePopup/ImagePopup";
 import RemoveCard from "../form/RemoveCard/RemoveCard";
 
-export default function Card({ card, onDelete, onLike, handleOpenPopup }) {
+export default function Card({
+  card,
+  onCardDelete,
+  onCardLike,
+  handleOpenPopup,
+  handleClosePopup,
+}) {
+  // Desestructuro las propiedades de la tarjeta
   const { name, link, isLiked } = card;
 
   // Abrir el popup de Image y Trash
@@ -10,10 +17,31 @@ export default function Card({ card, onDelete, onLike, handleOpenPopup }) {
     children: <ImagePopup card={card} />,
   };
 
+  // Maneja el clic en el botón de eliminar tarjeta
+  const handleCardDelete = () => {
+    onCardDelete(card);
+  };
+  // Configuración del popup de confirmación de eliminación
   const confirmatiotrash = {
     title: "¿Estás seguro/a?",
-    children: <RemoveCard onDelete={onDelete} card={card} />,
+    children: (
+      <RemoveCard
+        onCardDelete={handleCardDelete}
+        card={card}
+        onClose={handleClosePopup}
+      />
+    ),
   };
+
+  // Clase condicional para el botón de like dar style activo si isLiked es true
+  const cardLikeButtonClassName = `elements__card-favorite ${
+    isLiked ? "elements__card-favorite_active" : "" // Si isLiked es true, añade la clase "_active"
+  }`;
+
+  // Maneja el clic en el botón de like
+  function handleLikeClick() {
+    onCardLike(card); // Llama a la función onCardLike pasada como prop con la tarjeta actual
+  }
 
   return (
     <article className="elements__card">
@@ -38,14 +66,10 @@ export default function Card({ card, onDelete, onLike, handleOpenPopup }) {
 
         {/* Botón para Like */}
         <button
-          className={`${
-            isLiked
-              ? "elements__card-favorite_active elements__card-favorite"
-              : "elements__card-favorite"
-          }`}
+          className={cardLikeButtonClassName}
           aria-label="Like card"
           type="button"
-          onClick={() => onLike(card)}
+          onClick={handleLikeClick} // Llama a handleLikeClick cuando se hace clic en el botón
         ></button>
       </div>
     </article>

@@ -1,75 +1,53 @@
-import { useState } from "react";
-import logo_avatar from "../../../public/logo_avatar.jpg";
+import { useState, useEffect, useContext } from "react";
+
 import NewCard from "./form/NewCard/NewCard";
 import EditProfile from "./form/EditProfile/EditProfile";
 import EditAvatar from "./form/EditAvatar/EditAvatar";
 import Popup from "./Popup/Popup";
 import Card from "./Card/Card";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-export default function Main() {
+export default function Main({
+  cards,
+  onCardDelete,
+  onCardLike,
+  onAddPlaceSubmit,
+}) {
+  // Estado para manejar qué popup se muestra. null significa que no hay ningún popup abierto
   const [popup, setPopup] = useState(null);
 
-  const [cards, setCards] = useState([
-    {
-      isLiked: false,
-      _id: "5d1f0611d321eb4bdcd707dd",
-      name: "Yosemite Valley",
-      link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-      owner: "5d1f0611d321eb4bdcd707dd",
-      createdAt: "2019-07-05T08:10:57.741Z",
-    },
-    {
-      isLiked: false,
-      _id: "5d1f064ed321eb4bdcd707de",
-      name: "Lake Louise",
-      link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-      owner: "5d1f0611d321eb4bdcd707dd",
-      createdAt: "2019-07-05T08:11:58.324Z",
-    },
-  ]);
-
-  console.log(cards);
+  const { currentUser } = useContext(CurrentUserContext);
 
   // Abrir el popup de addCard, Perfile, Avatar
   const newCardPopup = {
     title: "Nuevo Lugar",
-    children: <NewCard closePopup={handleClosePopup} />,
+
+    children: (
+      <NewCard
+        closePopup={handleClosePopup}
+        onAddPlaceSubmit={onAddPlaceSubmit} // Aquí pasamos la función onAddPlaceSubmit como prop al componente NewCard
+      />
+    ),
   };
 
   const editProfilePopup = {
     title: "Editar Perfil",
     children: <EditProfile closePopup={handleClosePopup} />,
   };
+
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
     children: <EditAvatar closePopup={handleClosePopup} />,
   };
 
-  // cierra el popup poniendo popup de nuevo a null
+  // Esto cierra cualquier popup que esté abierto
   function handleClosePopup() {
     setPopup(null);
   }
 
-  // handlers para abrir cada popup
+  // El popup que se abre depende del argumento que se le pase a esta función
   function handleOpenPopup(popup) {
     setPopup(popup);
-  }
-
-  //Dar like
-  // Si los IDs coinciden, crea una nueva tarjeta con todas las propiedades de la anterior (...card),
-  //  pero con la propiedad isLiked invertida (si era true ahora es false, y viceversa).
-  function handleLike(cardToLike) {
-    setCards(
-      cards.map((card) =>
-        card._id === cardToLike._id ? { ...card, isLiked: !card.isLiked } : card
-      )
-    );
-  }
-
-  //Eliminar tarjetas
-  function handleDelete(cardToDelete) {
-    setCards(cards.filter((card) => card._id !== cardToDelete._id));
-    handleClosePopup();
   }
 
   return (
@@ -80,7 +58,7 @@ export default function Main() {
       <section className="profile">
         <div className="profile__avatar">
           <img
-            src={logo_avatar}
+            src={currentUser.avatar}
             alt="Avatar Por Defecto"
             className="profile__avatar-image"
           />
@@ -95,7 +73,7 @@ export default function Main() {
         {/* INFO PERFIL */}
         <div className="profile__info">
           <div className="profile__info-name">
-            <h2 className="profile__name">Alejandro Meléndez</h2>
+            <h2 className="profile__name">{currentUser.name}</h2>
 
             {/* Botón para editar perfil */}
             <button
@@ -104,7 +82,7 @@ export default function Main() {
               onClick={() => handleOpenPopup(editProfilePopup)}
             ></button>
           </div>
-          <p className="profile__about-me block">Ingeniero de Sistemas</p>
+          <p className="profile__about-me block">{currentUser.about}</p>
         </div>
 
         {/* <!-- ===== Sección de Tarjetas ===== --> */}
@@ -120,18 +98,20 @@ export default function Main() {
 
       <ul className="elements">
         {cards.map((card) => (
+          // Renderiza el componente Card para cada tarjeta en el estado cards
           <Card
-            key={card._id}
+            key={card._id} // La key ayuda a React a identificar qué ítems han cambiado, son añadidos o eliminados
             card={card} // Aqui traemos esos props del componente Cards card={{ name: "Valle de Yosemite", link: "/images/yosemite.jpg", isLiked: false,}}
-            onDelete={handleDelete}
-            onLike={handleLike}
-            handleOpenPopup={handleOpenPopup}
+            onCardLike={onCardLike} // Pasa la función onCardLike como prop onCardLike al componente Card
+            onCardDelete={onCardDelete} // Pasa la función onCardDelete como prop onCardDelete al componente Card
+            handleOpenPopup={handleOpenPopup} // Pasa la función handleOpenPopup como prop handleOpenPopup al componente Card
+            handleClosePopup={handleClosePopup} // Pasa la función handleClosePopup como prop handleClosePopup al componente Card
           />
         ))}
       </ul>
 
       {/* renderización condicional de Popup */}
-      {popup && (
+      {popup && ( // Si popup no es null, renderiza el componente Popup
         <Popup onClose={handleClosePopup} title={popup.title}>
           {popup.children}
         </Popup>
